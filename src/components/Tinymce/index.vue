@@ -8,6 +8,19 @@
 </template>
 
 <script>
+
+import tinymce from 'tinymce/tinymce'
+
+import 'tinymce/themes/modern/theme'
+
+import 'tinymce/plugins/paste'
+import 'tinymce/plugins/link'
+
+import 'tinymce/skins/lightgray/skin.min.css'
+import 'tinymce/skins/lightgray/content.min.css'
+
+// require.context('!file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins', true, /.*/)
+
 import editorImage from './components/editorImage'
 
 export default {
@@ -47,7 +60,7 @@ export default {
   watch: {
     value(val) {
       if (!this.hasChange && this.hasInit) {
-        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val))
+        this.$nextTick(() => tinymce.get(this.tinymceId).setContent(val))
       }
     }
   },
@@ -63,14 +76,15 @@ export default {
   methods: {
     initTinymce() {
       const _this = this
-      window.tinymce.init({
+      tinymce.init({
         selector: `#${this.tinymceId}`,
+        skin: false,
         height: this.height,
         body_class: 'panel-body ',
         object_resizing: false,
         toolbar: this.toolbar,
         menubar: this.menubar,
-        plugins: 'advlist,autolink,code,paste,textcolor, colorpicker,fullscreen,link,lists,media,wordcount, imagetools',
+        plugins: 'paste,,link',
         end_container_on_empty_block: true,
         powerpaste_word_import: 'clean',
         code_dialog_height: 450,
@@ -127,20 +141,20 @@ export default {
       })
     },
     destroyTinymce() {
-      if (window.tinymce.get(this.tinymceId)) {
-        window.tinymce.get(this.tinymceId).destroy()
+      if (tinymce.get(this.tinymceId)) {
+        tinymce.get(this.tinymceId).destroy()
       }
     },
     setContent(value) {
-      window.tinymce.get(this.tinymceId).setContent(value)
+      tinymce.get(this.tinymceId).setContent(value)
     },
     getContent() {
-      window.tinymce.get(this.tinymceId).getContent()
+      tinymce.get(this.tinymceId).getContent()
     },
     imageSuccessCBK(arr) {
       const _this = this
       arr.forEach(v => {
-        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
+        tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
       })
     }
   },

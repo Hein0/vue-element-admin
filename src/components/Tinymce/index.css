@@ -1,0 +1,9 @@
+.panel-body blockquote p {
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 28px;
+  color: #333;
+}
+.panel-body blockquote p:last-of-type {
+  margin-bottom: 0;
+}

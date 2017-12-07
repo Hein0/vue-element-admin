@@ -69,7 +69,6 @@ var webpackConfig = merge(baseWebpackConfig, {
         minifyCSS: true,
         minifyURLs: true
       },
-      path: config.build.assetsPublicPath + config.build.assetsSubDirectory,
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
